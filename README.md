@@ -22,8 +22,6 @@ MUSE (**Multi-target UDA-oriented Synthesis with Efficient diffusion fine-tuning
 
 Experiments on **Office-31, Office-Home, and miniDomainNet** show improved average target-domain accuracy and reduced diffusion fine-tuning cost compared with repeated per-target diffusion adaptation.
 
-This repository currently contains the project introduction. The implementation and model weights are not included in this initial release.
-
 ## Citation
 
 ```bibtex
