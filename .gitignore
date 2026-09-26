@@ -1,0 +1,9 @@
+# Local reference material, previews, and backups
+/tmp/
+
+# Assets from the previous project; the MUSE release is text-only
+/static/
+
+# Local operating-system files
+Thumbs.db
+.DS_Store

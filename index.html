@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MUSE | NeurIPS 2026</title>
+  <meta name="description" content="MUSE: efficient multi-target diffusion adaptation for unsupervised domain adaptation. Accepted at NeurIPS 2026.">
+  <meta name="author" content="Xuan Qi, Yi Wei, Daniele Berardini, Vito Paolo Pastore, Vittorio Murino">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MUSE | NeurIPS 2026">
+  <meta property="og:description" content="Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation.">
+  <meta property="og:url" content="https://xuanqi99.github.io/MUSE/">
+  <meta name="twitter:card" content="summary">
+  <meta name="citation_title" content="Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation">
+  <meta name="citation_author" content="Qi, Xuan">
+  <meta name="citation_author" content="Wei, Yi">
+  <meta name="citation_author" content="Berardini, Daniele">
+  <meta name="citation_author" content="Pastore, Vito Paolo">
+  <meta name="citation_author" content="Murino, Vittorio">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="Advances in Neural Information Processing Systems">
+  <meta name="theme-color" content="#fafaf8">
+  <link rel="canonical" href="https://xuanqi99.github.io/MUSE/">
+  <style>
+    :root { color-scheme: light; --ink: #192b35; --muted: #53646d; --accent: #126b63; --line: #dce2df; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #fafaf8; color: var(--ink); font: 17px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    a { color: var(--accent); text-underline-offset: 4px; }
+    a:hover { color: #094c45; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
+    .skip { position: absolute; left: 16px; top: -100px; background: white; padding: 8px; }
+    .skip:focus { top: 12px; }
+    .wrap { width: min(100% - 48px, 900px); margin: auto; }
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+    .brand { color: var(--ink); font-size: 19px; font-weight: 750; letter-spacing: .12em; text-decoration: none; }
+    header { padding: 65px 0 48px; text-align: center; }
+    .venue { color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { font-size: clamp(48px, 9vw, 72px); line-height: 1.1; letter-spacing: -.045em; margin: 18px 0; }
+    .paper-title { max-width: 800px; margin: 0 auto 26px; font-size: clamp(24px, 4vw, 34px); line-height: 1.35; font-weight: 600; letter-spacing: -.025em; }
+    .authors { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px 17px; margin-bottom: 16px; font-size: 16px; }
+    sup { font-size: .68em; }
+    .affiliations { color: var(--muted); font-size: 13px; line-height: 1.8; }
+    .affiliations p { margin: 2px 0; }
+    .corresponding { color: var(--muted); font-size: 12px; margin-top: 12px; }
+    .repo-link { display: inline-block; margin-top: 14px; padding: 9px 24px; border: 1px solid var(--accent); border-radius: 5px; text-decoration: none; font-size: 14px; font-weight: 600; }
+    main { max-width: 760px; margin: auto; }
+    section { padding: 30px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: 22px; letter-spacing: -.02em; margin: 0 0 14px; }
+    p { margin: 0 0 14px; }
+    p:last-child { margin-bottom: 0; }
+    ul { padding-left: 22px; margin: 0; }
+    li { padding-left: 4px; margin: 9px 0; }
+    .release-note { color: var(--muted); font-size: 14px; }
+    pre { margin: 0; padding: 20px; background: #eff2ef; border-radius: 5px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.8; }
+    code { font-family: ui-monospace, Consolas, monospace; }
+    footer { padding: 28px 0 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
+    @media (max-width: 560px) { .wrap { width: calc(100% - 32px); } header { padding: 42px 0 34px; } body { font-size: 16px; } .authors { gap: 4px 12px; } section { padding: 25px 0; } pre { padding: 14px; } }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#overview">Skip to content</a>
+  <div class="wrap">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="./">MUSE</a>
+      <a href="https://github.com/xuanqi99/MUSE">GitHub repository</a>
+    </nav>
+    <header>
+      <p class="venue">Accepted at NeurIPS 2026</p>
+      <h1>MUSE</h1>
+      <p class="paper-title">Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation</p>
+      <div class="authors">
+        <span>Xuan Qi<sup>1,2</sup></span>
+        <span>Yi Wei<sup>3,4,*</sup></span>
+        <span>Daniele Berardini<sup>1</sup></span>
+        <span>Vito Paolo Pastore<sup>1,5</sup></span>
+        <span>Vittorio Murino<sup>1,6</sup></span>
+      </div>
+      <div class="affiliations">
+        <p><sup>1</sup> AI for Good (AIGO), Istituto Italiano di Tecnologia, Genoa, Italy</p>
+        <p><sup>2</sup> DITEN, University of Genoa, Genoa, Italy</p>
+        <p><sup>3</sup> National Key Laboratory of Novel Software Technology, Nanjing University, China</p>
+        <p><sup>4</sup> School of Intelligence Science and Technology, Nanjing University, China</p>
+        <p><sup>5</sup> MaLGa, DIBRIS, University of Genoa, Genoa, Italy</p>
+        <p><sup>6</sup> Department of Computer Science, University of Verona, Verona, Italy</p>
+      </div>
+      <p class="corresponding">* Corresponding author: <a href="mailto:ywei@smail.nju.edu.cn">Yi Wei</a></p>
+      <a class="repo-link" href="https://github.com/xuanqi99/MUSE">View project on GitHub</a>
+    </header>
+    <main>
+      <section id="overview">
+        <h2>Overview</h2>
+        <p><strong>MUSE</strong> (Multi-target UDA-oriented Synthesis with Efficient diffusion fine-tuning) generates target-specific synthetic training data for multiple unlabeled target domains through one source-guided diffusion fine-tuning process.</p>
+        <p>By separating reusable source-supervised semantics from target-specific appearance, MUSE reduces repeated adaptation work while supporting downstream unsupervised domain adaptation.</p>
+      </section>
+      <section id="method">
+        <h2>How it works</h2>
+        <ul>
+          <li><strong>Shared semantics.</strong> A shared semantic branch learns class information from labeled source data.</li>
+          <li><strong>Target-specific styles.</strong> Lightweight private style branches capture the appearance of individual target domains.</li>
+          <li><strong>Decoupled optimization.</strong> Separate semantic and style adaptation reduces cross-target interference and avoids repeating source-guided fine-tuning for every target.</li>
+        </ul>
+      </section>
+      <section id="evaluation">
+        <h2>Evaluation</h2>
+        <p>Experiments on <strong>Office-31</strong>, <strong>Office-Home</strong>, and <strong>miniDomainNet</strong> show improved average target-domain accuracy and reduced diffusion fine-tuning cost compared with repeated per-target diffusion adaptation.</p>
+        <p class="release-note">This initial release contains the project introduction. The implementation and model weights are not included.</p>
+      </section>
+      <section id="citation">
+        <h2>Citation</h2>
+        <pre><code>@inproceedings{qi2026muse,
+  title={Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation},
+  author={Qi, Xuan and Wei, Yi and Berardini, Daniele and Pastore, Vito Paolo and Murino, Vittorio},
+  booktitle={Advances in Neural Information Processing Systems},
+  year={2026},
+  url={https://github.com/xuanqi99/MUSE}
+}</code></pre>
+      </section>
+    </main>
+    <footer>MUSE · NeurIPS 2026</footer>
+  </div>
+</body>
+</html>
