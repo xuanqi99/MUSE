@@ -4,7 +4,7 @@
 
 Accepted at **NeurIPS 2026**.
 
-Xuan Qi, Yi Wei (corresponding author), Daniele Berardini, Vito Paolo Pastore, Vittorio Murino
+Xuan Qi, Yi Wei, Daniele Berardini, Vito Paolo Pastore, Vittorio Murino
 
 Istituto Italiano di Tecnologia · University of Genoa · Nanjing University · University of Verona
 
