@@ -29,7 +29,6 @@ Experiments on **Office-31, Office-Home, and miniDomainNet** show improved avera
   title={Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation},
   author={Qi, Xuan and Wei, Yi and Berardini, Daniele and Pastore, Vito Paolo and Murino, Vittorio},
   booktitle={Advances in Neural Information Processing Systems},
-  year={2026},
-  url={https://github.com/xuanqi99/MUSE}
+  year={2026}
 }
 ```
