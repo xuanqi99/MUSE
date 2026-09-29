@@ -64,10 +64,15 @@ jobs:
 
           def crop_white(im, pad=30):
               rgb = im.convert("RGB")
+              # The source PDFs contain a thin dark page-edge line. Remove a
+              # small outer strip first so it does not defeat whitespace crop.
+              trim_x = max(2, round(rgb.width * 0.008))
+              trim_y = max(2, round(rgb.height * 0.008))
+              rgb = rgb.crop((trim_x, trim_y, rgb.width - trim_x, rgb.height - trim_y))
               bg = Image.new("RGB", rgb.size, "white")
               diff = ImageChops.difference(rgb, bg).convert("L")
-              # Ignore tiny antialiasing/compression variations close to white.
-              mask = diff.point(lambda p: 255 if p > 8 else 0)
+              # Ignore tiny antialiasing variations close to white.
+              mask = diff.point(lambda p: 255 if p > 12 else 0)
               box = mask.getbbox()
               if not box:
                   return rgb
