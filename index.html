@@ -102,6 +102,33 @@
       margin-top: 24px; padding: 18px 20px;
       border-left: 4px solid var(--accent); background: var(--soft); border-radius: 8px;
     }
+    .overview-grid {
+      margin-top: 28px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .overview-card {
+      min-height: 190px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: #fff;
+      box-shadow: 0 5px 18px rgba(31,42,68,.035);
+    }
+    .overview-index {
+      display: inline-block;
+      margin-bottom: 12px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: .08em;
+    }
+    .overview-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
     .cards {
       margin-top: 28px;
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
@@ -169,6 +196,7 @@
     }
     footer { padding: 35px 0 50px; color: var(--muted); font-size: 13px; text-align: center; }
     @media (max-width: 900px) {
+      .overview-grid { grid-template-columns: 1fr; }
       .cards, .stats { grid-template-columns: repeat(2, 1fr); }
       .two-col { grid-template-columns: 1fr; }
     }
@@ -223,13 +251,29 @@
       <div class="wrap">
         <h2>Overview</h2>
         <p class="lead">
-          Diffusion-based UDA can generate target-specific synthetic data, but existing pipelines are typically designed for a single target and repeat source–target diffusion fine-tuning for every target domain. MUSE revisits this design for the multi-target setting: one source-guided diffusion fine-tuning process is reused across multiple unlabeled targets.
+          MUSE reformulates diffusion-based UDA for the multi-target setting: instead of repeating source–target fine-tuning for every target domain, a single source-guided diffusion adaptation process is shared across multiple unlabeled targets.
         </p>
-        <p>
-          The key idea is to decouple <strong>source-supervised semantics</strong> from <strong>target-specific appearance</strong>. MUSE learns a shared semantic branch from labeled source data and lightweight target-private style branches from unlabeled target domains. The resulting generator produces target-specific labeled bridge samples without repeating source-involved fine-tuning for every source–target pair.
-        </p>
+
+        <div class="overview-grid">
+          <article class="overview-card">
+            <span class="overview-index">01</span>
+            <h3>Problem</h3>
+            <p>Existing diffusion-based UDA pipelines are typically target-specific, requiring a separate source–target fine-tuning process for each target domain.</p>
+          </article>
+          <article class="overview-card">
+            <span class="overview-index">02</span>
+            <h3>Shared–Private Adaptation</h3>
+            <p>MUSE separates source-supervised semantics from target-specific appearance using a shared semantic branch and lightweight target-private style cores.</p>
+          </article>
+          <article class="overview-card">
+            <span class="overview-index">03</span>
+            <h3>Target-specific Generation</h3>
+            <p>After multi-target fine-tuning, MUSE activates the corresponding target branch to generate labeled target-style bridge samples for downstream UDA.</p>
+          </article>
+        </div>
+
         <div class="note">
-          <strong>Goal.</strong> Improve the accuracy–efficiency trade-off of diffusion-based UDA by sharing what should be shared across targets while keeping target-specific style adaptation private.
+          <strong>Goal.</strong> Improve the accuracy–efficiency trade-off by sharing reusable semantic adaptation while preserving target-specific visual variation.
         </div>
       </div>
     </section>
