@@ -1,103 +1,386 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MUSE | NeurIPS 2026</title>
-  <meta name="description" content="MUSE: efficient multi-target diffusion adaptation for unsupervised domain adaptation. Accepted at NeurIPS 2026.">
-  <meta name="author" content="Xuan Qi, Yi Wei, Daniele Berardini, Vito Paolo Pastore, Vittorio Murino">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="MUSE | NeurIPS 2026">
-  <meta property="og:description" content="Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation.">
-  <meta property="og:url" content="https://xuanqi99.github.io/MUSE/">
-  <meta name="twitter:card" content="summary">
-  <meta name="citation_title" content="Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation">
-  <meta name="citation_author" content="Qi, Xuan">
-  <meta name="citation_author" content="Wei, Yi">
-  <meta name="citation_author" content="Berardini, Daniele">
-  <meta name="citation_author" content="Pastore, Vito Paolo">
-  <meta name="citation_author" content="Murino, Vittorio">
-  <meta name="citation_publication_date" content="2026">
-  <meta name="citation_conference_title" content="Advances in Neural Information Processing Systems">
-  <meta name="theme-color" content="#fafaf8">
-  <link rel="canonical" href="https://xuanqi99.github.io/MUSE/">
+  <meta name="description" content="MUSE: Multi-target UDA-oriented Synthesis with Efficient diffusion fine-tuning. NeurIPS 2026." />
+  <meta name="author" content="Xuan Qi, Yi Wei, Daniele Berardini, Vito Paolo Pastore, Vittorio Murino" />
+  <meta name="citation_title" content="Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation" />
+  <meta name="citation_conference_title" content="Advances in Neural Information Processing Systems" />
+  <meta name="citation_publication_date" content="2026" />
+  <meta name="citation_arxiv_id" content="2609.33716" />
+  <link rel="canonical" href="https://xuanqi99.github.io/MUSE/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MUSE | NeurIPS 2026" />
+  <meta property="og:description" content="Multi-target UDA-oriented Synthesis with Efficient diffusion fine-tuning." />
+  <meta property="og:url" content="https://xuanqi99.github.io/MUSE/" />
   <style>
-    :root { color-scheme: light; --ink: #192b35; --muted: #53646d; --accent: #126b63; --line: #dce2df; }
+    :root {
+      --ink: #172033;
+      --muted: #5e6878;
+      --line: #e5e9f0;
+      --soft: #f7f9fc;
+      --accent: #2357c6;
+      --accent-dark: #163d94;
+      --green: #0e766e;
+      --gold: #b97814;
+      --rose: #a53d67;
+      --max: 1120px;
+    }
     * { box-sizing: border-box; }
-    body { margin: 0; background: #fafaf8; color: var(--ink); font: 17px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    a { color: var(--accent); text-underline-offset: 4px; }
-    a:hover { color: #094c45; }
-    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; }
-    .skip { position: absolute; left: 16px; top: -100px; background: white; padding: 8px; }
-    .skip:focus { top: 12px; }
-    .wrap { width: min(100% - 48px, 900px); margin: auto; }
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
-    .brand { color: var(--ink); font-size: 19px; font-weight: 750; letter-spacing: .12em; text-decoration: none; }
-    header { padding: 65px 0 48px; text-align: center; }
-    .venue { color: #b45309; font-size: 18px; font-weight: 700; margin: 0 0 26px; }
-    .paper-title { max-width: 800px; margin: 0 auto 16px; font-size: clamp(24px, 4vw, 34px); line-height: 1.35; font-weight: 600; letter-spacing: -.025em; }
-    .authors { display: flex; flex-wrap: wrap; justify-content: center; gap: 3px 17px; margin-bottom: 16px; font-size: 16px; }
-    sup { font-size: .68em; }
-    .affiliations { color: var(--muted); font-size: 13px; line-height: 1.8; }
-    .affiliations p { margin: 2px 0; }
-    main { max-width: 760px; margin: auto; }
-    section { padding: 30px 0; border-top: 1px solid var(--line); }
-    h2 { font-size: 22px; letter-spacing: -.02em; margin: 0 0 14px; }
-    p { margin: 0 0 14px; }
-    p:last-child { margin-bottom: 0; }
-    ul { padding-left: 22px; margin: 0; }
-    li { padding-left: 4px; margin: 9px 0; }
-    pre { margin: 0; padding: 20px; background: #eff2ef; border-radius: 5px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; line-height: 1.8; }
-    code { font-family: ui-monospace, Consolas, monospace; }
-    footer { padding: 28px 0 36px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; text-align: center; }
-    @media (max-width: 560px) { .wrap { width: calc(100% - 32px); } header { padding: 42px 0 34px; } body { font-size: 16px; } .authors { gap: 4px 12px; } section { padding: 25px 0; } pre { padding: 14px; } }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { width: min(var(--max), calc(100% - 40px)); margin: 0 auto; }
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { font-weight: 800; letter-spacing: .02em; color: var(--ink); }
+    .nav-links { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; }
+    .nav-links a { color: var(--muted); font-weight: 600; }
+    .hero {
+      padding: 76px 0 52px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, #f8fbff 0%, #fff 100%);
+    }
+    .venue {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 7px 12px; border-radius: 999px;
+      background: #eaf0ff; color: var(--accent-dark); font-weight: 800; font-size: 13px;
+    }
+    h1 {
+      max-width: 980px; margin: 22px auto 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(36px, 5vw, 61px);
+      line-height: 1.08; letter-spacing: -.025em;
+    }
+    .acronym {
+      margin: 0 auto 18px; max-width: 840px;
+      font-size: 18px; color: var(--muted);
+    }
+    .authors {
+      max-width: 900px; margin: 0 auto 8px;
+      font-size: 17px; font-weight: 650;
+    }
+    .affiliations { margin: 0 auto; color: var(--muted); font-size: 14px; }
+    .actions {
+      margin-top: 28px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-height: 44px; padding: 0 18px; border-radius: 10px;
+      border: 1px solid #cfd7e5; color: var(--ink); background: #fff; font-weight: 750;
+    }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn:hover { text-decoration: none; transform: translateY(-1px); }
+    main section { padding: 58px 0; border-bottom: 1px solid var(--line); }
+    h2 {
+      margin: 0 0 18px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(27px, 3vw, 37px);
+      line-height: 1.2;
+    }
+    h3 { margin: 0 0 9px; font-size: 18px; }
+    p { margin: 0 0 16px; }
+    .lead { font-size: 19px; color: #344055; max-width: 920px; }
+    .note {
+      margin-top: 24px; padding: 18px 20px;
+      border-left: 4px solid var(--accent); background: var(--soft); border-radius: 8px;
+    }
+    .cards {
+      margin-top: 28px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+    }
+    .card {
+      padding: 20px; border: 1px solid var(--line); border-radius: 14px;
+      background: #fff; box-shadow: 0 5px 18px rgba(31,42,68,.035);
+    }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .tag {
+      display: inline-block; margin-bottom: 10px; padding: 4px 8px;
+      border-radius: 999px; background: #edf2ff; color: var(--accent-dark);
+      font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+    }
+    figure { margin: 32px 0 0; }
+    .figure-shell {
+      border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+      background: #fff; box-shadow: 0 8px 24px rgba(31,42,68,.05);
+    }
+    figure img { display: block; width: 100%; height: auto; }
+    figcaption {
+      margin-top: 10px; color: var(--muted); font-size: 14px; text-align: center;
+    }
+    .two-col {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start;
+    }
+    .mode {
+      border: 1px solid var(--line); border-radius: 13px; padding: 20px; background: var(--soft);
+    }
+    .mode strong { color: var(--accent-dark); }
+    .stats {
+      margin: 25px 0 30px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    }
+    .stat {
+      border: 1px solid var(--line); border-radius: 13px; padding: 18px; text-align: center;
+      background: #fff;
+    }
+    .stat .n { display: block; font-size: 29px; font-weight: 850; line-height: 1.1; color: var(--accent-dark); }
+    .stat .l { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+    .table-wrap {
+      overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; background: #fff;
+    }
+    table { border-collapse: collapse; width: max(100%, 1250px); font-size: 12px; line-height: 1.35; }
+    th, td { padding: 9px 8px; border-bottom: 1px solid #edf0f4; text-align: right; white-space: nowrap; }
+    th { background: #f4f6fa; color: #364258; font-weight: 800; }
+    th:first-child, td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; background: inherit; }
+    th:nth-child(2), td:nth-child(2) { text-align: left; }
+    tbody tr:hover { background: #fafcff; }
+    tr.group td {
+      background: #f1f4f8; color: #5b6575; font-weight: 800; text-align: left !important;
+      letter-spacing: .02em;
+    }
+    tr.ours { background: #eef8f6; }
+    tr.ours td:first-child { background: #eef8f6; }
+    tr.pairwise { background: #fffaf0; }
+    tr.pairwise td:first-child { background: #fffaf0; }
+    .best { font-weight: 850; color: #075f58; }
+    .table-note { margin-top: 12px; color: var(--muted); font-size: 13px; }
+    .eff { width: 100%; max-width: 760px; margin-top: 22px; font-size: 14px; }
+    .eff th, .eff td { padding: 10px 12px; }
+    pre {
+      margin: 0; padding: 20px; overflow-x: auto; border-radius: 12px;
+      background: #101827; color: #e7edf7; font: 13px/1.6 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    footer { padding: 35px 0 50px; color: var(--muted); font-size: 13px; text-align: center; }
+    @media (max-width: 900px) {
+      .cards, .stats { grid-template-columns: repeat(2, 1fr); }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 24px, var(--max)); }
+      .nav-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; gap: 6px; }
+      .nav-links { gap: 12px; font-size: 12px; }
+      .hero { padding: 52px 0 36px; }
+      .cards, .stats { grid-template-columns: 1fr; }
+      main section { padding: 42px 0; }
+    }
   </style>
 </head>
 <body>
-  <a class="skip" href="#overview">Skip to content</a>
-  <div class="wrap">
-    <nav aria-label="Main navigation">
-      <a class="brand" href="./">MUSE</a>
-      <a href="https://github.com/xuanqi99/MUSE">GitHub repository</a>
-    </nav>
-    <header>
-      <h1 class="paper-title">Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation</h1>
-      <p class="venue">Accepted at NeurIPS 2026</p>
-      <div class="authors">
-        <span>Xuan Qi<sup>1,2</sup></span>
-        <span>Yi Wei<sup>3,4</sup></span>
-        <span>Daniele Berardini<sup>1</sup></span>
-        <span>Vito Paolo Pastore<sup>1,5</sup></span>
-        <span>Vittorio Murino<sup>1,6</sup></span>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top">MUSE</a>
+      <nav class="nav-links" aria-label="Project sections">
+        <a href="#overview">Overview</a>
+        <a href="#method">Method</a>
+        <a href="#generation">Generation</a>
+        <a href="#results">Results</a>
+        <a href="#visualization">Visualization</a>
+        <a href="#citation">Citation</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="hero" id="top">
+    <div class="wrap">
+      <div class="venue">NeurIPS 2026 · Accepted</div>
+      <h1>Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation</h1>
+      <p class="acronym"><strong>MUSE</strong> — <strong>M</strong>ulti-target <strong>U</strong>DA-oriented <strong>S</strong>ynthesis with <strong>E</strong>fficient diffusion fine-tuning</p>
+      <p class="authors">
+        <a href="https://xuanqi99.github.io/">Xuan Qi</a>,
+        Yi Wei,
+        Daniele Berardini,
+        Vito Paolo Pastore,
+        Vittorio Murino
+      </p>
+      <p class="affiliations">Istituto Italiano di Tecnologia (IIT) · University of Genoa · Nanjing University</p>
+      <div class="actions">
+        <a class="btn primary" href="https://arxiv.org/abs/2609.33716" target="_blank" rel="noopener noreferrer">Paper</a>
+        <a class="btn" href="https://arxiv.org/pdf/2609.33716" target="_blank" rel="noopener noreferrer">PDF</a>
+        <a class="btn" href="https://github.com/xuanqi99/MUSE" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
-      <div class="affiliations">
-        <p><sup>1</sup> AI for Good (AIGO), Istituto Italiano di Tecnologia, Genoa, Italy</p>
-        <p><sup>2</sup> DITEN, University of Genoa, Genoa, Italy</p>
-        <p><sup>3</sup> National Key Laboratory of Novel Software Technology, Nanjing University, China</p>
-        <p><sup>4</sup> School of Intelligence Science and Technology, Nanjing University, China</p>
-        <p><sup>5</sup> MaLGa, DIBRIS, University of Genoa, Genoa, Italy</p>
-        <p><sup>6</sup> Department of Computer Science, University of Verona, Verona, Italy</p>
-      </div>
-    </header>
-    <main>
-      <section id="overview">
+    </div>
+  </div>
+
+  <main>
+    <section id="overview">
+      <div class="wrap">
         <h2>Overview</h2>
-        <p><strong>MUSE</strong> (Multi-target UDA-oriented Synthesis with Efficient diffusion fine-tuning) generates target-specific synthetic training data for multiple unlabeled target domains through one source-guided diffusion fine-tuning process.</p>
-        <p>By separating reusable source-supervised semantics from target-specific appearance, MUSE reduces repeated adaptation work while supporting downstream unsupervised domain adaptation.</p>
-      </section>
-      <section id="method">
-        <h2>How it works</h2>
-        <ul>
-          <li><strong>Shared semantics.</strong> A shared semantic branch learns class information from labeled source data.</li>
-          <li><strong>Target-specific styles.</strong> Lightweight private style branches capture the appearance of individual target domains.</li>
-          <li><strong>Decoupled optimization.</strong> Separate semantic and style adaptation reduces cross-target interference and avoids repeating source-guided fine-tuning for every target.</li>
-        </ul>
-      </section>
-      <section id="evaluation">
-        <h2>Evaluation</h2>
-        <p>Experiments on <strong>Office-31</strong>, <strong>Office-Home</strong>, and <strong>miniDomainNet</strong> show improved average target-domain accuracy and reduced diffusion fine-tuning cost compared with repeated per-target diffusion adaptation.</p>
-      </section>
-      <section id="citation">
+        <p class="lead">
+          Diffusion-based UDA can generate target-specific synthetic data, but existing pipelines are typically designed for a single target and repeat source–target diffusion fine-tuning for every target domain. MUSE revisits this design for the multi-target setting: one source-guided diffusion fine-tuning process is reused across multiple unlabeled targets.
+        </p>
+        <p>
+          The key idea is to decouple <strong>source-supervised semantics</strong> from <strong>target-specific appearance</strong>. MUSE learns a shared semantic branch from labeled source data and lightweight target-private style branches from unlabeled target domains. The resulting generator produces target-specific labeled bridge samples without repeating source-involved fine-tuning for every source–target pair.
+        </p>
+        <div class="note">
+          <strong>Goal.</strong> Improve the accuracy–efficiency trade-off of diffusion-based UDA by sharing what should be shared across targets while keeping target-specific style adaptation private.
+        </div>
+      </div>
+    </section>
+
+    <section id="method">
+      <div class="wrap">
+        <h2>MUSE Pipeline</h2>
+        <div class="cards">
+          <article class="card">
+            <span class="tag">Shared</span>
+            <h3>Semantic branch</h3>
+            <p>Labeled source images use class-conditional prompts and update a shared low-rank semantic branch.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Private</span>
+            <h3>Target style cores</h3>
+            <p>Each target activates only its lightweight private core on top of shared style projection factors.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Two-pass</span>
+            <h3>Decoupled optimization</h3>
+            <p>Pass A updates semantics from source data; Pass B freezes semantics and updates target-conditioned style parameters.</p>
+          </article>
+          <article class="card">
+            <span class="tag">Adaptive</span>
+            <h3>Target sampling</h3>
+            <p>Targets with larger recent denoising losses receive more target-side updates during multi-target adaptation.</p>
+          </article>
+        </div>
+
+        <figure>
+          <div class="figure-shell">
+            <img src="assets/pipeline.webp" alt="Overview of the MUSE pipeline with frozen SDXL components, shared-private adapters, source-conditioned and target-conditioned passes, and adaptive target sampling." loading="lazy" />
+          </div>
+          <figcaption>
+            MUSE performs branch-decoupled diffusion adaptation with a source-supervised shared semantic branch and target-private style branches, then activates the corresponding target branch for target-specific bridge generation.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="generation">
+      <div class="wrap">
+        <h2>Target-specific Bridge Generation</h2>
+        <div class="two-col">
+          <div class="mode">
+            <h3>1. DDIM inversion translation</h3>
+            <p><strong>Instance-preserving bridge:</strong> invert a labeled source image and denoise it with a target-specific branch. The generated sample keeps the source label while shifting visual appearance toward the target domain.</p>
+          </div>
+          <div class="mode">
+            <h3>2. Class-conditional generation</h3>
+            <p><strong>Diversity bridge:</strong> start from Gaussian noise and use class prompts with the target-specific branch to synthesize additional labeled target-style samples.</p>
+          </div>
+        </div>
+        <figure>
+          <div class="figure-shell">
+            <img src="assets/bridge-generation.webp" alt="Bridge generation examples on miniDomainNet using DDIM inversion and Gaussian-noise class-conditional synthesis." loading="lazy" />
+          </div>
+          <figcaption>
+            Bridge generation on miniDomainNet: DDIM inversion translates a Real-domain lion to Clipart, Painting, and Sketch; Gaussian-noise class-conditional generation synthesizes broccoli in target styles.
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="wrap">
+        <h2>miniDomainNet Results</h2>
+        <p>
+          miniDomainNet uses Clipart (C), Painting (P), Real (R), and Sketch (S), producing twelve ordered transfer tasks. Values below are target-domain top-1 accuracy (%). Pairwise methods adapt/generate separately for source–target pairs, while MUSE uses multi-target generation.
+        </p>
+
+        <div class="stats">
+          <div class="stat"><span class="n">84.37%</span><span class="l">SSRT + MUSE average</span></div>
+          <div class="stat"><span class="n">64.02%</span><span class="l">MCC + MUSE average</span></div>
+          <div class="stat"><span class="n">65.04%</span><span class="l">ELS + MUSE average</span></div>
+          <div class="stat"><span class="n">2.44×</span><span class="l">SDXL fine-tuning speedup vs. Terra</span></div>
+        </div>
+
+        <div class="table-wrap" role="region" aria-label="miniDomainNet transfer accuracy table" tabindex="0">
+          <table>
+            <thead>
+              <tr>
+                <th>Method</th><th>Diffusion Gen.</th>
+                <th>C→P</th><th>C→R</th><th>C→S</th>
+                <th>P→C</th><th>P→R</th><th>P→S</th>
+                <th>R→C</th><th>R→P</th><th>R→S</th>
+                <th>S→C</th><th>S→P</th><th>S→R</th><th>Avg.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>ERM</td><td>—</td><td>39.48</td><td>53.27</td><td>42.93</td><td>49.55</td><td>68.18</td><td>41.99</td><td>49.30</td><td>55.52</td><td>37.35</td><td>54.60</td><td>45.33</td><td>53.08</td><td>49.22</td></tr>
+              <tr><td>DANN</td><td>—</td><td>45.94</td><td>56.12</td><td>49.40</td><td>50.72</td><td>65.61</td><td>50.07</td><td>55.15</td><td>60.55</td><td>49.95</td><td>58.54</td><td>54.64</td><td>58.99</td><td>54.64</td></tr>
+              <tr><td>AFN</td><td>—</td><td>49.23</td><td>60.11</td><td>51.11</td><td>55.60</td><td>70.59</td><td>51.78</td><td>55.84</td><td>60.41</td><td>47.46</td><td>60.69</td><td>56.36</td><td>62.28</td><td>56.79</td></tr>
+              <tr><td>CDAN</td><td>—</td><td>47.99</td><td>58.50</td><td>51.17</td><td>56.36</td><td>68.71</td><td>53.01</td><td>61.15</td><td>62.85</td><td>53.44</td><td>60.89</td><td>55.90</td><td>60.88</td><td>57.57</td></tr>
+              <tr><td>MDD</td><td>—</td><td>48.53</td><td>61.75</td><td>52.32</td><td>59.74</td><td>70.62</td><td>55.43</td><td>62.18</td><td>62.22</td><td>54.04</td><td>63.07</td><td>58.55</td><td>64.50</td><td>59.41</td></tr>
+              <tr><td>SDAT</td><td>—</td><td>50.97</td><td>62.42</td><td>53.91</td><td>60.57</td><td>69.97</td><td>55.85</td><td>64.39</td><td>64.83</td><td>55.86</td><td>64.07</td><td>59.43</td><td>64.28</td><td>60.55</td></tr>
+              <tr><td>MCC</td><td>—</td><td>51.95</td><td>67.73</td><td>52.66</td><td>60.96</td><td>76.61</td><td>54.67</td><td>64.15</td><td>64.02</td><td>50.34</td><td>63.64</td><td>59.68</td><td>69.78</td><td>61.35</td></tr>
+              <tr><td>ELS</td><td>—</td><td>50.11</td><td>61.45</td><td>53.02</td><td>60.77</td><td>70.61</td><td>56.04</td><td>62.43</td><td>64.16</td><td>54.89</td><td>63.93</td><td>59.19</td><td>64.47</td><td>60.09</td></tr>
+              <tr><td>SSRT</td><td>—</td><td>77.30</td><td>86.35</td><td>75.24</td><td>80.79</td><td>88.10</td><td>74.92</td><td>84.29</td><td>80.16</td><td>78.10</td><td>81.75</td><td>75.71</td><td>86.67</td><td>80.78</td></tr>
+
+              <tr class="group"><td colspan="15">Diffusion-based baselines: pairwise generation</td></tr>
+              <tr class="pairwise"><td>MCC + Terra</td><td>Pairwise</td><td>52.64</td><td>68.26</td><td>51.88</td><td>60.45</td><td>77.24</td><td>55.41</td><td>63.85</td><td>64.52</td><td>50.86</td><td>63.21</td><td>59.88</td><td>70.68</td><td>61.57</td></tr>
+              <tr class="pairwise"><td>ELS + Terra</td><td>Pairwise</td><td>52.68</td><td>68.57</td><td>54.37</td><td>60.23</td><td>70.78</td><td>56.87</td><td>63.57</td><td>63.25</td><td>54.51</td><td>64.22</td><td>60.36</td><td>64.54</td><td>61.16</td></tr>
+              <tr class="pairwise"><td>SSRT + Terra</td><td>Pairwise</td><td>79.84</td><td>89.05</td><td>76.35</td><td>80.48</td><td>88.41</td><td>75.56</td><td>82.84</td><td>78.25</td><td>78.40</td><td>80.95</td><td>77.14</td><td>88.41</td><td>81.31</td></tr>
+              <tr class="pairwise"><td>MCC + DCDM</td><td>Pairwise</td><td>55.28</td><td>70.21</td><td>54.42</td><td>63.25</td><td>77.05</td><td>55.74</td><td>65.16</td><td>65.01</td><td>51.96</td><td>65.76</td><td>60.83</td><td>71.09</td><td>62.98</td></tr>
+              <tr class="pairwise"><td>ELS + DCDM</td><td>Pairwise</td><td>56.14</td><td>68.52</td><td>55.51</td><td>64.96</td><td>73.44</td><td>58.23</td><td>64.67</td><td>64.36</td><td>57.66</td><td>67.23</td><td>62.56</td><td>69.90</td><td>63.60</td></tr>
+              <tr class="pairwise"><td>SSRT + DCDM</td><td>Pairwise</td><td>78.26</td><td>87.42</td><td>77.56</td><td>81.64</td><td>87.15</td><td>76.82</td><td>81.92</td><td>80.35</td><td>76.51</td><td>82.34</td><td>76.92</td><td>88.21</td><td>81.26</td></tr>
+
+              <tr class="group"><td colspan="15">Our method: multi-target generation</td></tr>
+              <tr class="ours"><td><strong>MCC + MUSE</strong></td><td>Multi-target</td><td>58.02</td><td>72.82</td><td>56.54</td><td>66.23</td><td>74.56</td><td>57.74</td><td>63.42</td><td>65.87</td><td>54.67</td><td>66.74</td><td>60.98</td><td>70.64</td><td><strong>64.02</strong></td></tr>
+              <tr class="ours"><td><strong>ELS + MUSE</strong></td><td>Multi-target</td><td>59.18</td><td>73.61</td><td>57.13</td><td>65.81</td><td>75.81</td><td>58.62</td><td>64.31</td><td>65.32</td><td>58.94</td><td>67.59</td><td>61.93</td><td>72.24</td><td><strong>65.04</strong></td></tr>
+              <tr class="ours"><td><strong>SSRT + MUSE</strong></td><td>Multi-target</td><td class="best">80.68</td><td class="best">91.16</td><td class="best">80.05</td><td class="best">85.60</td><td class="best">91.63</td><td class="best">79.25</td><td class="best">85.44</td><td class="best">81.79</td><td class="best">80.05</td><td class="best">84.49</td><td class="best">80.21</td><td class="best">92.11</td><td class="best">84.37</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="table-note">
+          Avg. is over all twelve tasks. SSRT + MUSE obtains the highest value on every reported miniDomainNet transfer task in this table.
+        </p>
+
+        <h3 style="margin-top:34px">Generator fine-tuning efficiency</h3>
+        <div class="table-wrap" style="max-width:780px">
+          <table class="eff">
+            <thead><tr><th>Dataset</th><th># Domains</th><th>Terra (h) ↓</th><th>MUSE (h) ↓</th><th>Speedup ↑</th></tr></thead>
+            <tbody>
+              <tr><td>Office-31</td><td>3</td><td>96.78</td><td>51.74</td><td><strong>1.87×</strong></td></tr>
+              <tr><td>Office-Home</td><td>4</td><td>196.36</td><td>80.79</td><td><strong>2.43×</strong></td></tr>
+              <tr><td>miniDomainNet</td><td>4</td><td>197.68</td><td>81.04</td><td><strong>2.44×</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="visualization">
+      <div class="wrap">
+        <h2>Feature-space Visualization</h2>
+        <p class="lead">
+          The t-SNE plots compare source-domain samples, target-domain samples, DDIM-inversion adapted source samples, and generated target-domain samples across Office-31, Office-Home, and miniDomainNet.
+        </p>
+        <figure>
+          <div class="figure-shell">
+            <img src="assets/tsne.webp" alt="t-SNE visualizations for Office-31, Office-Home, and miniDomainNet comparing source, target, DDIM-inversion adapted source, and generated target samples." loading="lazy" />
+          </div>
+          <figcaption>Representative feature-space visualizations on Office-31, Office-Home, and miniDomainNet.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="citation">
+      <div class="wrap">
         <h2>Citation</h2>
         <pre><code>@inproceedings{qi2026muse,
   title={Revisiting Diffusion Fine-Tuning for Unsupervised Domain Adaptation},
@@ -105,9 +388,12 @@
   booktitle={Advances in Neural Information Processing Systems},
   year={2026}
 }</code></pre>
-      </section>
-    </main>
-    <footer>MUSE · NeurIPS 2026</footer>
-  </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">MUSE · NeurIPS 2026 · Project page maintained by the authors.</div>
+  </footer>
 </body>
 </html>
