@@ -57,16 +57,17 @@ jobs:
           from pathlib import Path
 
           jobs = [
-              ("/tmp/pipeline.png", "assets/pipeline.webp", 2600, 94),
-              ("/tmp/inversion.png", "assets/bridge-generation.webp", 2600, 94),
-              ("/tmp/tsne.png", "assets/tsne.webp", 3000, 96),
+              ("/tmp/pipeline.png", "assets/pipeline.webp", 2600, 94, 30, 0.008),
+              ("/tmp/inversion.png", "assets/bridge-generation.webp", 2600, 94, 30, 0.008),
+              # Keep substantially more room on the left for the t-SNE legend.
+              ("/tmp/tsne.png", "assets/tsne.webp", 3000, 96, 180, 0.002),
           ]
 
-          def crop_white(im, pad=30):
+          def crop_white(im, pad=30, left_pad=None, trim_ratio_x=0.008):
               rgb = im.convert("RGB")
               # The source PDFs contain a thin dark page-edge line. Remove a
               # small outer strip first so it does not defeat whitespace crop.
-              trim_x = max(2, round(rgb.width * 0.008))
+              trim_x = max(2, round(rgb.width * trim_ratio_x))
               trim_y = max(2, round(rgb.height * 0.008))
               rgb = rgb.crop((trim_x, trim_y, rgb.width - trim_x, rgb.height - trim_y))
               bg = Image.new("RGB", rgb.size, "white")
@@ -77,15 +78,15 @@ jobs:
               if not box:
                   return rgb
               l, t, r, b = box
-              l = max(0, l - pad)
+              l = max(0, l - (left_pad if left_pad is not None else pad))
               t = max(0, t - pad)
               r = min(rgb.width, r + pad)
               b = min(rgb.height, b + pad)
               return rgb.crop((l, t, r, b))
 
-          for src, dst, max_width, quality in jobs:
+          for src, dst, max_width, quality, left_pad, trim_ratio_x in jobs:
               im = Image.open(src)
-              im = crop_white(im)
+              im = crop_white(im, left_pad=left_pad, trim_ratio_x=trim_ratio_x)
               if im.width > max_width:
                   height = round(im.height * max_width / im.width)
                   im = im.resize((max_width, height), Image.Resampling.LANCZOS)
