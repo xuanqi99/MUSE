@@ -8,7 +8,7 @@ Xuan Qi, Yi Wei, Daniele Berardini, Vito Paolo Pastore, Vittorio Murino
 
 Istituto Italiano di Tecnologia · University of Genoa · Nanjing University · University of Verona
 
-[Project page](https://xuanqi99.github.io/MUSE/) · [Code](https://github.com/xuanqi99/MUSE-Code)
+[Paper](https://openreview.net/forum?id=u8WasX4zQq#discussion) · [PDF](https://openreview.net/pdf?id=u8WasX4zQq) · [Project page](https://xuanqi99.github.io/MUSE/) · [Code](https://github.com/xuanqi99/MUSE-Code)
 
 ## Overview
 
